@@ -17,6 +17,7 @@ class mensaje {
     public $destinatario;
     public $link;
     public $usuarios;
+    public $fecha;
     
     function __construct($tipo, $arr)
     {
@@ -39,6 +40,7 @@ class mensaje {
         $this->destinatario =empty($arr['mensaje']['destinatario']) ? null : $arr['mensaje']['destinatario'];
         $this->link = empty($arr['mensaje']['link'])?null: $arr['mensaje']['link'];
         $this->usuarios = empty($arr['mensaje']['usuarios'])?null: $arr['mensaje']['usuarios'];
+        $this->fecha = empty($arr['mensaje']['fecha'])?null: $arr['mensaje']['fecha'];
     }
     
     function cargaPost($arr)

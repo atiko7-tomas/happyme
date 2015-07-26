@@ -12,8 +12,14 @@ require_once 'entidades/mensaje.php';
 function consultaMensajeRandom($id_usuario)
 {
     $conexion = new conexion;
-    $query = 'SELECT * WHERE tipo CONTAINS "mensaje" AND NOT mensaje.usuarios CONTAINS "'.$id_usuario.'"';
+    
+    $query = 'SELECT * WHERE tipo CONTAINS "mensaje" AND mensaje.destinatario CONTAINS "'.$id_usuario.'" AND NOT mensaje.usuarios CONTAINS "'.$id_usuario.'"';
     $document = $conexion->cpsSimple->sql_search ($query, DOC_TYPE_SIMPLEXML);
+    if(count($document)==0)
+    {    
+        $query = 'SELECT * WHERE tipo CONTAINS "mensaje" AND NOT mensaje.usuarios CONTAINS "'.$id_usuario.'"';
+        $document = $conexion->cpsSimple->sql_search ($query, DOC_TYPE_SIMPLEXML);
+    }
     $idMensaje = array_rand ($document);
     
     $mensaje = $document[$idMensaje];
