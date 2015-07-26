@@ -8,6 +8,31 @@
 
 require_once 'master.php';
 
+if(isset($_GET['usuario']))
+{
+    $res = consultaSingle('taguirre');
+    $usuario= new usuario("ARRAY", $res);
+    echo $usuario;
+}
+
+if(isset($_GET['mensaje_randomico']) && isset($_GET[mensaje_randomico_usuario]))
+{
+    $res = consultaMensajeRandom($_GET[mensaje_randomico_usuario]);
+    $mensaje= new mensaje("ARRAY", $res);
+    echo $mensaje->link;
+}
+
+if(isset($_GET['conteo_nuevos_usuario']))
+{
+    $res = usuarioConteoNuevos($_GET['conteo_nuevos_usuario']);
+    var_dump($res);
+}
+if(isset($_GET['usuario_historial']))
+{
+    $res = usuarioHistorial($_GET['usuario_historial']);
+    var_dump($res);
+}
+
 if(isset($_POST['usuario']))
 {
     $usuario= new usuario("POST",$_POST);
@@ -20,21 +45,6 @@ if(isset($_POST['usuario']))
     {
         ingresar('usuario', $_POST['usuario'], $entidad);
     }
-}
-
-if(isset($_GET['usuario']))
-{
-    $res = consultaSingle('taguirre');
-    $usuario= new usuario("ARRAY", $res);
-    echo $usuario;
-}
-
-
-if(isset($_GET['mensaje_randomico']) && isset($_GET[mensaje_randomico_usuario]))
-{
-    $res = consultaMensajeRandom($_GET[mensaje_randomico_usuario]);
-    $mensaje= new mensaje("ARRAY", $res);
-    echo $mensaje->link;
 }
 
 if(isset($_POST['mensaje']))
