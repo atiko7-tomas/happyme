@@ -27,3 +27,8 @@ function actualizaMensaje($mensaje)
 
     $conexion->cpsSimple->updateSingle($mensaje->id, $document);
 }
+
+function actualizaMensaje($mensaje)
+{
+}
+}
