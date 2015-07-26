@@ -38,7 +38,7 @@ class mensaje {
         $this->id = $arr['id'];
         $this->emisor = empty($arr['mensaje']['emisor'])?null: $arr['mensaje']['emisor'];
         $this->destinatario =empty($arr['mensaje']['destinatario']) ? null : $arr['mensaje']['destinatario'];
-        $this->link = empty($arr['mensaje']['link'])?null: $arr['mensaje']['link'];
+        $this->link = empty($arr['mensaje']['link'])?null: urlencode( $arr['mensaje']['link']);
         $this->usuarios = empty($arr['mensaje']['usuarios'])?null: $arr['mensaje']['usuarios'];
         $this->fecha = empty($arr['mensaje']['fecha'])?null: $arr['mensaje']['fecha'];
     }
