@@ -38,6 +38,7 @@ class mensaje {
         $this->emisor = empty($arr['mensaje']['emisor'])?null: $arr['mensaje']['emisor'];
         $this->destinatario =empty($arr['mensaje']['destinatario']) ? null : $arr['mensaje']['destinatario'];
         $this->link = empty($arr['mensaje']['link'])?null: $arr['mensaje']['link'];
+        $this->usuarios = empty($arr['mensaje']['usuarios'])?null: $arr['mensaje']['usuarios'];
     }
     
     function cargaPost($arr)
@@ -46,5 +47,6 @@ class mensaje {
         $this->emisor = $arr['emisor'];
         $this->destinatario =$arr['destinatario'];
         $this->link = $arr['link'];
+        $this->usuarios = $arr['usuario'];
     }
 }

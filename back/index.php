@@ -30,47 +30,48 @@ if(isset($_GET['usuario']))
 }
 
 
-if(isset($_GET['mensaje_randomico']))
+if(isset($_GET['mensaje_randomico']) && isset($_GET[mensaje_randomico_usuario]))
 {
-    $res = consultaMensajeRandom();
+    $res = consultaMensajeRandom($_GET[mensaje_randomico_usuario]);
     $mensaje= new mensaje("ARRAY", $res);
     echo $mensaje->link;
 }
-
-if(isset($_GET['mensaje_randomico']))
-{
-    $res = consultaMensajeRandom();
-    $mensaje= new mensaje("ARRAY", $res);
-    echo $mensaje->link;
-}
-
 
 if(isset($_POST['mensaje']))
 {
-    $mensaje= new mensaje("POST",$_POST);
-    
-    if($mensaje->id != "")
+    if(isset($_POST['mensaje_usuario']))
     {
-        $resultado = consultaSingle($_POST['mensaje']);
-        if(isset($resultado))
+        agregaUsuarioMensaje($_POST['mensaje'], $_POST['mensaje_usuario']);
+    }
+    else
+    {
+        $mensaje= new mensaje("POST",$_POST);
+
+        if($mensaje->id != "")
         {
-            actualizar('mensaje', $_POST['mensaje'], $mensaje);
+            $resultado = consultaSingle($_POST['mensaje']);
+            if(isset($resultado))
+            {
+                actualizar('mensaje', $_POST['mensaje'], $mensaje);
+            }
+            else
+            {
+                ingresar('mensaje', $mensaje);
+            }
         }
         else
         {
             ingresar('mensaje', $mensaje);
         }
     }
-    else
-    {
-        ingresar('mensaje', $mensaje);
-    }
 }
 
+
 ?>
-<!--
+
 <form method="POST" >
-    <input type="text" name="mensaje" value="mensaje"/>
-    <input type="text" name="emisor"/>
+    mensaje<input type="text" name="mensaje" value="mensaje"/><br/>    
+    emisor<input type="text" name="emisor"/><br>
+    mensaje_usuario<input type="text" name="mensaje_usuario"/><br>
     <input type="submit" value="Submit">
-</form>-->
+</form>
