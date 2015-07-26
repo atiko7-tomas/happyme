@@ -8,22 +8,13 @@
 require_once 'db.php';
 require_once 'entidades/mensaje.php';
 
-function ingresarMensaje($mensaje)
+function consultaMensajeRandom()
 {
     $conexion = new conexion;
-    $document = array(
-	'mensaje' => json_decode(json_encode($mensaje), true)
-    );
-
-    $conexion->cpsSimple->insertSingle($mensaje->id, $document);
+    $document = $conexion->cpsSimple->sql_search ('SELECT * WHERE tipo contains "mensaje"', DOC_TYPE_SIMPLEXML);
+    $idMensaje = array_rand ($document);
+    
+    $mensaje = $document[$idMensaje];
+    return json_decode(json_encode($mensaje),TRUE); 
 }
 
-function actualizaMensaje($mensaje)
-{
-    $conexion = new conexion;
-    $document = array(
-	'mensaje' => json_decode(json_encode($mensaje), true)
-    );
-
-    $conexion->cpsSimple->updateSingle($mensaje->id, $document);
-}

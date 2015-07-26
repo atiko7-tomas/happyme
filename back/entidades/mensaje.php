@@ -17,4 +17,34 @@ class mensaje {
     public $destinatario;
     public $link;
     public $usuarios;
+    
+    function __construct($tipo, $arr)
+    {
+        switch($tipo)
+        {
+            case "POST":
+                $this->cargaPost($arr);
+                break;
+            case "ARRAY":
+                $this->carga($arr);
+                break;
+        }
+            
+    }
+    
+    function carga($arr)
+    {
+        $this->id = $arr['id'];
+        $this->emisor = empty($arr['mensaje']['emisor'])?null: $arr['mensaje']['emisor'];
+        $this->destinatario =empty($arr['mensaje']['destinatario']) ? null : $arr['mensaje']['destinatario'];
+        $this->link = empty($arr['mensaje']['link'])?null: $arr['mensaje']['link'];
+    }
+    
+    function cargaPost($arr)
+    {
+        $this->id = $arr['mensaje'];
+        $this->emisor = $arr['emisor'];
+        $this->destinatario =$arr['destinatario'];
+        $this->link = $arr['link'];
+    }
 }
